@@ -1,8 +1,6 @@
 import { Tab, Tabs } from '@material-ui/core'
 import React from 'react'
 
-ProductSort.propTypes = {}
-
 function ProductSort({ currentSort, onChange }) {
   const handleSortChange = (e, newValue) => {
     onChange?.(newValue)

@@ -12,13 +12,20 @@ function InputField({ name, form, label }) {
     <Controller
       control={form.control}
       name={name}
-      as={TextField}
-      label={label}
-      fullWidth
-      margin='normal'
-      variant='outlined'
-      error={!!hasError}
-      helperText={errors[name]?.message}
+      render={({ onChange, onBlur, value, name }) => (
+        <TextField
+          label={label}
+          fullWidth
+          margin='normal'
+          variant='outlined'
+          error={!!hasError}
+          helperText={errors[name]?.message}
+          name={name}
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+        />
+      )}
     />
   )
 }

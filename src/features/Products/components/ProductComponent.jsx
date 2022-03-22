@@ -1,14 +1,22 @@
 import { Box, Typography } from '@material-ui/core'
 import { STATIC_HOST, THUMBNAIL_PLACEHOLDER } from 'constants'
 import React from 'react'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 
 function ProductComponent({ product = {} }) {
+  const history = useHistory()
+
   const thumbnailUrl = product.thumbnail
     ? `${STATIC_HOST}${product.thumbnail?.url}`
     : THUMBNAIL_PLACEHOLDER
 
+  const handleClick = () => {
+    // navigate to detail page
+    history.push(`products/${product.id}`)
+  }
+
   return (
-    <Box p={1}>
+    <Box p={1} onClick={handleClick}>
       <Box p={1}>
         <img src={thumbnailUrl} minHeight='215px' width='100%' alt={product.name} />
       </Box>

@@ -1,4 +1,4 @@
-import { Box, IconButton } from '@material-ui/core'
+import { Box, IconButton, Link } from '@material-ui/core'
 import AppBar from '@material-ui/core/AppBar'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
@@ -83,7 +83,9 @@ export default function Header() {
           <AdbIcon className={classes.menuButton} />
 
           <Typography variant='h6' className={classes.title}>
-            EZ SHOP
+            <Link href='/' color='inherit'>
+              SHOP DEMO
+            </Link>
           </Typography>
 
           {!isLoggedIn && (
