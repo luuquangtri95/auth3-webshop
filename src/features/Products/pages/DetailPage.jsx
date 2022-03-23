@@ -2,6 +2,7 @@ import { Box, CircularProgress, Container, Grid, makeStyles, Paper } from '@mate
 import useProductDetail from 'hooks/useProductDetail'
 import React from 'react'
 import { useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min'
+import AddToCartForm from '../components/AddToCartForm'
 import ProductInfo from '../components/ProductInfo'
 import ProductThumbnail from '../components/ProductThumbnail'
 
@@ -34,6 +35,10 @@ function DetailPage(props) {
     )
   }
 
+  const handleAddToCartSubmit = (formValue) => {
+    console.log(formValue)
+  }
+
   return (
     <Box className={classes.root}>
       <Container>
@@ -44,6 +49,7 @@ function DetailPage(props) {
             </Grid>
             <Grid item className={classes.right}>
               <ProductInfo product={product} />
+              <AddToCartForm onSubmit={handleAddToCartSubmit} />
             </Grid>
           </Grid>
         </Paper>

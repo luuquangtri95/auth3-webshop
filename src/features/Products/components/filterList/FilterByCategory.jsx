@@ -1,5 +1,6 @@
-import { Box, Divider, makeStyles, Typography } from '@material-ui/core'
+import { Box, CircularProgress, Divider, makeStyles, Typography } from '@material-ui/core'
 import categoryApi from 'apis/categoryApi'
+import useGetCategory from 'hooks/useGetCategory'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 
@@ -22,28 +23,38 @@ const useStyle = makeStyles((theme) => ({
 }))
 
 function FilterByCategory({ onChange = null }) {
-  const [categoryList, setCategoryList] = useState([])
+  // const [categoryList, setCategoryList] = useState([])
   const classes = useStyle()
 
-  useEffect(() => {
-    ;(async () => {
-      try {
-        const list = await categoryApi.getAll()
-        const byPassList = list.map((x) => ({
-          id: x.id,
-          name: x.name,
-        }))
+  // useEffect(() => {
+  //   ;(async () => {
+  //     try {
+  //       const list = await categoryApi.getAll()
+  //       const byPassList = list.map((x) => ({
+  //         id: x.id,
+  //         name: x.name,
+  //       }))
 
-        /**
-         * byPassList function: Lọc lại những giá trị cần thiết
-         */
-        console.log(byPassList)
-        setCategoryList(byPassList)
-      } catch (error) {
-        console.log('fail to fetch')
-      }
-    })()
-  }, [])
+  //       /**
+  //        * byPassList function: Lọc lại những giá trị cần thiết
+  //        */
+  //       console.log(byPassList)
+  //       setCategoryList(byPassList)
+  //     } catch (error) {
+  //       console.log('fail to fetch')
+  //     }
+  //   })()
+  // }, [])
+
+  const { categoryList, loading } = useGetCategory()
+
+  if (loading) {
+    return (
+      <Box textAlign='center'>
+        <CircularProgress />
+      </Box>
+    )
+  }
 
   const handleCategoryClick = (category) => {
     onChange?.(category.name)

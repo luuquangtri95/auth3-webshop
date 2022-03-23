@@ -1,3 +1,33 @@
 # rules of filters (filter by category, price range...vv)
 
-ProductFilterList => chứa tất cả component filter con nằm bên trong, mỗi khi thay đổi sẽ báo lại thằng cha
+```
+ProductFilerList
+|__FilterByCategory
+|__FilterByPriceRange
+|__FilterByService
+```
+
+# rules of ListPage
+
+```
+ListPage
+|__Left page
+   |__ProductsFilterList
+|__Right page
+   |__ProductSort
+   |__FilterViewer
+   |__ProductList
+      |__ProductComponent
+```
+
+# rules of DetailPage
+
+```
+DetailPage
+|__ProductThumbnail
+|__ProductInfo
+   |__ProductInfo
+   |__AddToCartForm
+      |__QuantityField
+|__ProductMenu
+```
