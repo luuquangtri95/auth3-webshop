@@ -13,6 +13,10 @@ ProductFilerList
 ListPage
 |__Left page
    |__ProductsFilterList
+      |__FilterByCategory
+      |__FilterByPriceRange
+      |__FilterByService
+      ...etc
 |__Right page
    |__ProductSort
    |__FilterViewer
