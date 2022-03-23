@@ -35,3 +35,7 @@ DetailPage
       |__QuantityField
 |__ProductMenu
 ```
+
+/products/:productId -> ProductDescription
+/products/:productId/additional --> ProductAdditional
+/products/:productId/reviews --> ProductReviews
