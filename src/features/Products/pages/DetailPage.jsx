@@ -1,6 +1,9 @@
 import { Box, CircularProgress, Container, Grid, makeStyles, Paper } from '@material-ui/core'
+import { addToCart, showMiniCart } from 'features/Cart/cartSlice'
 import useProductDetail from 'hooks/useProductDetail'
+import { useSnackbar } from 'notistack'
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { Route } from 'react-router-dom'
 import { Switch } from 'react-router-dom'
 import { useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min'
@@ -27,6 +30,9 @@ const useStyle = makeStyles((theme) => ({
 
 function DetailPage(props) {
   const classes = useStyle()
+  const { enqueueSnackbar } = useSnackbar()
+  const dispatch = useDispatch()
+
   const {
     params: { productId },
     url,
@@ -43,9 +49,21 @@ function DetailPage(props) {
   }
 
   const handleAddToCartSubmit = (formValue) => {
-    console.log(formValue)
+    dispatch(
+      addToCart({
+        id: product.id,
+        product,
+        quantity: formValue.quantity,
+      })
+    )
+
+    enqueueSnackbar('add to cart success', {
+      variant: 'success',
+      anchorOrigin: { horizontal: 'right', vertical: 'bottom' },
+    })
+
+    dispatch(showMiniCart())
   }
-  console.log(url)
   return (
     <Box className={classes.root}>
       <Container>

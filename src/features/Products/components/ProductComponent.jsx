@@ -1,10 +1,17 @@
-import { Box, Typography } from '@material-ui/core'
+import { Box, makeStyles, Typography } from '@material-ui/core'
 import { STATIC_HOST, THUMBNAIL_PLACEHOLDER } from 'constants'
 import React from 'react'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 
+const useStyle = makeStyles((theme) => ({
+  root: {
+    cursor: 'pointer',
+  },
+}))
+
 function ProductComponent({ product = {} }) {
   const history = useHistory()
+  const classes = useStyle()
 
   const thumbnailUrl = product.thumbnail
     ? `${STATIC_HOST}${product.thumbnail?.url}`
@@ -16,7 +23,7 @@ function ProductComponent({ product = {} }) {
   }
 
   return (
-    <Box p={1} onClick={handleClick}>
+    <Box p={1} onClick={handleClick} className={classes.root}>
       <Box p={1}>
         <img src={thumbnailUrl} minHeight='215px' width='100%' alt={product.name} />
       </Box>

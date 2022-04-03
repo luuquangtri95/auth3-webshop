@@ -1,22 +1,24 @@
-import { Box, IconButton, Link } from '@material-ui/core'
+import { Badge, Box, IconButton, Link } from '@material-ui/core'
 import AppBar from '@material-ui/core/AppBar'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 import { makeStyles } from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import { AccountCircle, Close } from '@material-ui/icons'
+import { AccountCircle, Close, ShoppingCart } from '@material-ui/icons'
 import AdbIcon from '@material-ui/icons/Adb'
 import Login from 'features/Auth/components/Login'
 import Register from 'features/Auth/components/Register'
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
 import { logout } from 'features/Auth/userSlice'
+import { hideMiniCart } from 'features/Cart/cartSlice'
+import MiniCart from 'components/MiniCart'
+import { cartItemCountSelector } from 'features/Cart/selectors'
+import React, { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,6 +38,17 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.grey[500],
     cursor: 'pointer',
   },
+  iconCart: {
+    position: 'relative',
+  },
+  miniCart: {
+    width: '300px',
+    height: 'auto',
+    position: 'absolute',
+    zIndex: '10',
+    backgroundColor: '#fff',
+    right: '20%',
+  },
 }))
 
 const MODE = {
@@ -45,12 +58,17 @@ const MODE = {
 
 export default function Header() {
   const loggedInUser = useSelector((state) => state.user.current)
+  const cartItemCount = useSelector(cartItemCountSelector)
+  const showMiniCart = useSelector((state) => state.cart.showMiniCart)
+  const cartItems = useSelector((state) => state.cart.cartItems)
   const dispatch = useDispatch()
   const isLoggedIn = !!loggedInUser.id
   const [open, setOpen] = useState(false)
   const [mode, setMode] = useState(MODE.LOGIN)
   const [anchorEl, setAnchorEl] = useState(null)
   const classes = useStyles()
+  const history = useHistory()
+  const elementRef = useRef(null)
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -76,6 +94,24 @@ export default function Header() {
     setAnchorEl(null)
   }
 
+  const handleCartClick = () => {
+    history.push('/cart')
+  }
+
+  useEffect(() => {
+    const handleMiniCart = (e) => {
+      if (!elementRef.current.contains(e.target)) {
+        dispatch(hideMiniCart())
+      }
+    }
+
+    window.addEventListener('click', handleMiniCart)
+
+    return () => {
+      window.removeEventListener('click', handleMiniCart)
+    }
+  }, [])
+
   return (
     <div className={classes.root}>
       <AppBar position='static'>
@@ -99,9 +135,34 @@ export default function Header() {
               <AccountCircle />
             </IconButton>
           )}
+
+          <Box className={classes.iconCart}>
+            <IconButton color='inherit' onClick={handleCartClick}>
+              <Badge badgeContent={cartItemCount} color='secondary'>
+                <ShoppingCart />
+              </Badge>
+            </IconButton>
+
+            {/* mini cart */}
+
+            {showMiniCart && (
+              <Box className={classes.miniCart} ref={elementRef} boxShadow={3}>
+                <Box component='ul' padding={0}>
+                  {cartItems.map((x) => (
+                    <MiniCart key={x.id} cartItem={x} />
+                  ))}
+                </Box>
+
+                <Box textAlign='center'>
+                  <Button variant='text' color='primary' href='/cart' onClick={handleCartClick}>
+                    Tới Giỏ Hàng
+                  </Button>
+                </Box>
+              </Box>
+            )}
+          </Box>
         </Toolbar>
       </AppBar>
-
       <Menu
         id='simple-menu'
         anchorEl={anchorEl}
@@ -121,7 +182,6 @@ export default function Header() {
         <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
         <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
       </Menu>
-
       {/*  dialog => show hide onClick button login or register */}
       <Dialog
         disableBackdropClick
