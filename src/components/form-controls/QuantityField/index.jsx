@@ -17,6 +17,7 @@ const useStyle = makeStyles((theme) => ({
   label: {
     marginBottom: '12px',
   },
+  button: {},
 }))
 
 function QuantityField({ form, name, label }) {
@@ -25,11 +26,11 @@ function QuantityField({ form, name, label }) {
   const classes = useStyle()
 
   return (
-    <FormControl error={!!hasError} fullWidth margin='normal' variant='outlined' size='small'>
+    <FormControl error={!!hasError} margin='normal' variant='outlined' size='small'>
       {/* <InputLabel htmlFor='outlined-adornment-password'>{label}</InputLabel> */}
-      <Typography className={classes.label} variant='span' color='initial'>
+      {/* <Typography className={classes.label} variant='span' color='initial'>
         Quantity:
-      </Typography>
+      </Typography> */}
       <Controller
         control={form.control}
         name={name}

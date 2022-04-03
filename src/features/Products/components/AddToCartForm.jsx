@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Button } from '@material-ui/core'
+import { Button, Box } from '@material-ui/core'
 import InputField from 'components/form-controls/InputField'
 import QuantityField from 'components/form-controls/QuantityField'
 import React from 'react'
@@ -28,12 +28,14 @@ function AddToCartForm({ onSubmit = null }) {
 
   return (
     <form onSubmit={form.handleSubmit(handleSubmitForm)}>
-      <QuantityField name='quantity' form={form} label='Quantity' />
+      <Box component='div'>
+        <QuantityField name='quantity' form={form} label='Quantity' />
+      </Box>
 
       <Button
         type='submit'
         variant='contained'
-        style={{ width: '250px' }}
+        style={{ width: '200px' }}
         color='primary'
         fullWidth
       >

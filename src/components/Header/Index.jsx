@@ -119,7 +119,11 @@ export default function Header() {
           <AdbIcon className={classes.menuButton} />
 
           <Typography variant='h6' className={classes.title}>
-            <Link href='/' color='inherit'>
+            <Link
+              onClick={() => history.push('/')}
+              color='inherit'
+              style={{ cursor: 'pointer', textDecoration: 'none' }}
+            >
               SHOP DEMO
             </Link>
           </Typography>
@@ -154,7 +158,7 @@ export default function Header() {
                 </Box>
 
                 <Box textAlign='center'>
-                  <Button variant='text' color='primary' href='/cart' onClick={handleCartClick}>
+                  <Button variant='text' color='primary' onClick={handleCartClick}>
                     Tới Giỏ Hàng
                   </Button>
                 </Box>
