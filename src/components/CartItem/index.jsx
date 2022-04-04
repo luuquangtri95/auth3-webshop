@@ -57,7 +57,10 @@ function CartItem({ cartItem, onSubmit }) {
         {cartItem.product.name}
       </Typography>
 
-      <form style={{ display: 'flex' }} onSubmit={form.handleSubmit(handleSubmit)}>
+      <form
+        style={{ display: 'flex', alignItems: 'center' }}
+        onSubmit={form.handleSubmit(handleSubmit)}
+      >
         <QuantityField className={classes.quantity} form={form} name='quantity' />
 
         <Button type='submit'>cập nhật</Button>
