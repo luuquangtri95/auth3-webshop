@@ -29,9 +29,9 @@ const cartSlice = createSlice({
 
     setQuantity(state, action) {
       const { id, quantity } = action.payload
-      // check if product is available in cart
-      const index = state.cartItems.findIndex((x) => x === id)
 
+      // check if product is available in cart
+      const index = state.cartItems.findIndex((x) => x.id === id)
       if (index >= 0) {
         state.cartItems[index].quantity = quantity
       }

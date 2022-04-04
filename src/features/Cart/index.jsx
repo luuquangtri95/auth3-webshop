@@ -1,9 +1,8 @@
 import { Box, Container, Grid, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import CartItem from 'components/CartItem'
-import MiniCart from 'components/MiniCart'
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { formatPrice } from 'utils'
 import { cartTotalSelector } from './selectors'
 

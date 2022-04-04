@@ -43,7 +43,6 @@ function QuantityField({ form, name, label }) {
             >
               <RemoveCircleOutline />
             </IconButton>
-
             <OutlinedInput
               id={name}
               type='number'
@@ -53,7 +52,6 @@ function QuantityField({ form, name, label }) {
               onBlur={onBlur}
               name={name}
             />
-
             <IconButton>
               <AddCircleOutline
                 onClick={() =>
