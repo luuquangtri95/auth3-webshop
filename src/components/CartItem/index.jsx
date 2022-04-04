@@ -15,7 +15,7 @@ const useStyle = makeStyles((theme) => ({
     justifyContent: 'space-between',
   },
   image: {
-    maxWidth: '200px',
+    maxWidth: '100px',
   },
   quantity: {
     width: 'auto !important',
@@ -56,6 +56,7 @@ function CartItem({ cartItem, onSubmit }) {
       <Typography variant='body2' color='primary'>
         {cartItem.product.name}
       </Typography>
+
       <form style={{ display: 'flex' }} onSubmit={form.handleSubmit(handleSubmit)}>
         <QuantityField className={classes.quantity} form={form} name='quantity' />
 

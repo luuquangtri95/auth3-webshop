@@ -14,6 +14,9 @@ const useStyle = makeStyles((theme) => ({
   left: {
     flex: '1 1 auto',
   },
+  ul: {
+    padding: '0 24px',
+  },
 }))
 
 function CartFeature(props) {
@@ -28,7 +31,7 @@ function CartFeature(props) {
         <Grid container>
           <Grid item className={classes.left}>
             <Paper elevation={0}>
-              <Box component='ul'>
+              <Box component='ul' paddingLeft={0} className={classes.ul}>
                 {cartItems.map((x) => (
                   <CartItem key={x.id} cartItem={x} />
                 ))}
